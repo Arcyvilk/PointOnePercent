@@ -6,7 +6,7 @@ import { CHANGE_TAB } from './modules/Tabs'
 import { SEARCH_GAMES_VALUE, SEARCH_MEMBERS_VALUE } from './modules/Search'
 import { SHOW_GAMES_RATED } from './modules/CheckBoxes'
 import { SHOW_LOGIN_MODAL, LOG_IN_USER, LOG_OUT_USER, CHANGE_PROFILE, BAN_PERSON } from './modules/Login'
-import { CACHE_GAMES, CACHE_MEMBERS, CACHE_RATING, CACHE_EVENTS, CACHE_USERS } from './modules/Cache'
+import { CACHE_GAMES, CACHE_MEMBERS, CACHE_RATING, CACHE_EVENTS, CACHE_USERS, CACHE_BLOG } from './modules/Cache'
 
 const ratingArray = () => rating.map(r => r.score.toString())
 
@@ -27,6 +27,7 @@ const defaultState = {
     games: [],
     members: [],
     events: [],
+    blog: [],
     rating: null,
     users: {}
 }
@@ -105,6 +106,10 @@ const reducer = (state = defaultState, action) => {
         case CACHE_USERS: return {
             ...state,
             users: action.data
+        }
+        case CACHE_BLOG: return {
+            ...state,
+            blog: action.data
         }
         case BAN_PERSON: return {
             ...state,

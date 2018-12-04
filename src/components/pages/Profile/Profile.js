@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import { changeProfile, banPerson } from '../../../shared/store/modules/Login'
+import { cacheBlog, cacheUsers } from '../../../shared/store/modules/Cache'
 
 class Profile extends React.Component {
     constructor(props) {
@@ -10,9 +11,26 @@ class Profile extends React.Component {
             avatar: props.users[props.username].avatar,
             description: props.users[props.username].description,
             unknownAvatar: 'https://i.pinimg.com/originals/02/4f/01/024f01aff419ee3b22ece9c63ac08c70.jpg',
-            unknownDescription: 'This user didn\'t write anything about themselves yet!'
+            unknownDescription: 'This user didn\'t write anything about themselves yet!',
+
+            blogtitle: null,
+            blogcontent: null
         }
     }
+    loadUsers = () => {
+        axios.get('/rest/users')  
+            .then(response => {
+                if (response.status === 200)
+                  return this.props.dispatch(cacheUsers(response.data))
+            }).catch(err => console.trace(err))
+    }
+    loadBlog = () => {
+        axios.get('/rest/blog')  
+            .then(response => {
+                if (response.status === 200)
+                  return this.props.dispatch(cacheBlog(response.data))
+            }).catch(err => console.trace(err))
+      }
     submitNewData = () => {
         axios.post(`/rest/user/profilechange/${this.props.username}`, {
             avatar: this.state.avatar,
@@ -22,7 +40,24 @@ class Profile extends React.Component {
             this.props.users[this.props.username].description = this.state.description;
             this.props.dispatch(changeProfile(this.state.avatar, this.state.description))
             alert("Profile updated succesfully!")
+            this.loadUsers()
         }).catch(err => alert("Error while updating your profile data."))
+    }
+    submitNewBlog = () => {
+        if (!this.state.blogtitle)
+            return alert('You must add title to your blog post!')
+        if (!this.state.blogcontent)
+            return alert('You must add content to your blog post!')
+        axios.post(`/rest/admin/blog/add`, {
+            title: this.state.blogtitle,
+            content: this.state.blogcontent,
+            id: `id-${Date.now()}`,
+            date: Date.now(),
+            author: this.props.username
+        }).then(() => {
+            alert("Blog updated succesfully!")
+            this.loadBlog()
+        }).catch(err => alert("Error while ading blog post."))
     }
     toChange = (input, value) => this.setState({ [input]: value })
     banOrUnban = (username) => {
@@ -85,6 +120,22 @@ class Profile extends React.Component {
                 {
                     this.memberList()
                 }
+                </div>
+            </div>
+            <div className="profile-section-admin">
+                <h3>Add a new article</h3>
+                <div>
+                    <div className="flex-row">
+                        <label htmlFor="blog-input-title">Title</label>
+                        <input type="text" if="blog-input-title" onChange={ e => this.toChange("blogtitle", e.target.value) }></input>
+                    </div>
+                    <div className="flex-row">
+                        <label htmlFor="blog-input-content">Content</label>
+                        <input type="text" id="blog-input-content" onChange={ e => this.toChange("blogcontent", e.target.value) }></input>
+                    </div>
+                    <div className="flex-row">
+                        <button className="button custom-button profile-input-submit" onClick={ () => this.submitNewBlog() }>Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

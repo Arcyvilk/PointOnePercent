@@ -1,12 +1,13 @@
 import React from 'react'
-import blog from '../../../shared/mock/blog' //THIS IS FOR DEV PURPOSES - GONNA BE CHANGED TO JSON DOWNLOADED FRMO THE SERVER
+import { connect } from 'react-redux';
 
-export default class PageHome extends React.Component{
+class PageHome extends React.Component{
     render() {
+        const { props } = this
         return (
             <div>
                 {
-                    blog.map((entry, entryIndex) => 
+                    props.blog.map((entry, entryIndex) => 
                         <div className='blog-entry' key={ `entry-${entryIndex}` }>
                             <h1>
                                 { entry.title}
@@ -22,3 +23,11 @@ export default class PageHome extends React.Component{
         )
     }
 }
+
+const mapStateToProps = state => ({ 
+    blog: state.blog 
+})
+
+export default connect(
+    mapStateToProps
+)( PageHome )
