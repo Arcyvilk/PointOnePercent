@@ -1,8 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import axios from 'axios'
 import { showLoginModal, logInUser } from '../../store/modules/Login'
 import { sha256 } from '../../helpers/hash'
-import logins from '../../mock/credentials.json'
 
 const loginModalVisible = show => show ? "login-modal-wrapper display-flex" : "login-modal-wrapper display-none"
 
@@ -31,17 +31,29 @@ class LoginModal extends React.Component {
             : this.logIn()
     }
     logIn = () => {
-        if (logins.hasOwnProperty(this.state.username) && logins[this.state.username].password === this.state.password) {
+        if (this.props.users.hasOwnProperty(this.state.username) && this.props.users[this.state.username].password === this.state.password) {
             this.showLogin()
-            return this.props.dispatch(logInUser(this.state.username, logins[this.state.username].privilege, logins[this.state.username].banned))
+            return this.props.dispatch(logInUser(this.state.username, this.props.users[this.state.username].privilege, this.props.users[this.state.username].banned))
         }
         alert(`Incorrect password or username.`)
     }
     register = () => {
         if (this.state.password !== this.state.repeatedPassword)
             return alert("Passwords differ.")
-        logins[this.state.username] = this.state.password
-        alert("User created! Now you can log in.")
+        this.props.users[this.state.username] = {
+            password: this.state.password,
+            privilege: 'user',
+            banned: false,
+            avatar: null,
+            description: null
+        }
+        axios.get(`/rest/user/create/${this.state.username}/${this.state.password}`)
+            .then(response => {
+                if (response.status === 200)
+                    return alert('Registered!')
+                alert(response.data)
+          })
+          .catch(err => console.log(err.message))
     }
 
     render() {
@@ -96,7 +108,8 @@ class LoginModal extends React.Component {
 }
 
 const mapStateToProps = state => ({ 
-    showLoginModal: state.showLoginModal 
+    showLoginModal: state.showLoginModal,
+    users: state.users
 })
 const mapDispatchToProps = dispatch => ({ dispatch })
 

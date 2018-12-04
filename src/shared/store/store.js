@@ -5,8 +5,8 @@ import rating from '../config/rating.json'
 import { CHANGE_TAB } from './modules/Tabs'
 import { SEARCH_GAMES_VALUE, SEARCH_MEMBERS_VALUE } from './modules/Search'
 import { SHOW_GAMES_RATED } from './modules/CheckBoxes'
-import { SHOW_LOGIN_MODAL, LOG_IN_USER, LOG_OUT_USER } from './modules/Login'
-import { CACHE_GAMES, CACHE_MEMBERS, CACHE_RATING, CACHE_EVENTS } from './modules/Cache'
+import { SHOW_LOGIN_MODAL, LOG_IN_USER, LOG_OUT_USER, CHANGE_PROFILE, BAN_PERSON } from './modules/Login'
+import { CACHE_GAMES, CACHE_MEMBERS, CACHE_RATING, CACHE_EVENTS, CACHE_USERS } from './modules/Cache'
 
 const ratingArray = () => rating.map(r => r.score.toString())
 
@@ -20,12 +20,15 @@ const defaultState = {
     showGamesRated: [ ...ratingArray() ],
     username: null,
     privilege: null,
+    avatar: null, 
+    description: null,
     banned: false,
     logged: false,
     games: [],
     members: [],
     events: [],
-    rating: null
+    rating: null,
+    users: {}
 }
 
 const enhancers = [ ]
@@ -64,7 +67,9 @@ const reducer = (state = defaultState, action) => {
             username: action.username,
             privilege: action.privilege,
             logged: true,
-            banned: action.banned
+            banned: action.banned,
+            avatar: action.avatar, 
+            description: action.description
         }
         case LOG_OUT_USER: return {
             ...state,
@@ -72,7 +77,14 @@ const reducer = (state = defaultState, action) => {
             privilege: null,
             logged: false,
             banned: false,
+            avatar: null, 
+            description: null,
             activeTab: "home"
+        }
+        case CHANGE_PROFILE: return {
+            ...state,
+            avatar: action.avatar, 
+            description: action.description
         }
         case CACHE_GAMES: return {
             ...state,
@@ -89,6 +101,14 @@ const reducer = (state = defaultState, action) => {
         case CACHE_EVENTS: return {
             ...state,
             events: action.data
+        }
+        case CACHE_USERS: return {
+            ...state,
+            users: action.data
+        }
+        case BAN_PERSON: return {
+            ...state,
+            users: action.users
         }
         default: return state
     }
