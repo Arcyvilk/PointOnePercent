@@ -1,13 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import _ from 'lodash'
 
 class PageHome extends React.Component{
     render() {
         const { props } = this
+        const blog = _.orderBy(props.blog, ['date'], ['desc'])
+
         return (
             <div>
                 {
-                    props.blog.map((entry, entryIndex) => 
+                    blog.map((entry, entryIndex) => 
                         <div className='blog-entry' key={ `entry-${entryIndex}` }>
                             <h1>
                                 { entry.title}

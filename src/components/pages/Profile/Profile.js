@@ -131,7 +131,7 @@ class Profile extends React.Component {
                     </div>
                     <div className="flex-row">
                         <label htmlFor="blog-input-content">Content</label>
-                        <input type="text" id="blog-input-content" onChange={ e => this.toChange("blogcontent", e.target.value) }></input>
+                        <textarea type="text" name="blog-input-content" id="blog-input-content" onChange={ e => this.toChange("blogcontent", e.target.value) }></textarea>
                     </div>
                     <div className="flex-row">
                         <button className="button custom-button profile-input-submit" onClick={ () => this.submitNewBlog() }>Submit</button>
