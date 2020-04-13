@@ -53,21 +53,21 @@ class MemberSummary extends React.Component {
             <div className={`member-summary flex-row ${disabled ? 'member-disabled' : ''} ${shekelmaster ? 'member-shekelmaster' : '' }` } onClick={ this.showProfile }>
                 <div className="member-position">{ index+1 }</div>
                 <img className="member-avatar" src={ member.avatar } alt="avatar" />
-                {
-                    tier 
-                        ? <i className={ `fas fa-donate member-patron tier${tier}` } title={ patron.description.toUpperCase() } />
-                        : <i className='fas fa-donate member-patron' style={{ color: 'transparent' }}/>
-                }
+                <div className='flex-row'>
+                    {
+                        tier 
+                            ? <i className={ `fas fa-donate member-patron tier${tier}` } title={ patron.description.toUpperCase() } />
+                            : <i className='fas fa-donate member-patron' style={{ color: 'transparent' }}/>
+                    }
+                    {
+                        disabled
+                            ? <i className="fas fa-exclamation-triangle" title="This member has their Steam profile set to private." style={{ marginLeft: '10px' }}/>
+                            : <i className="fas fa-exclamation-triangle" style={{ color: 'transparent', marginLeft: '10px' }}/>
+                    }
+                </div>
                 <div className="member-info flex-row">
                     <i className={ `fas fa-chevron-down icon-hover ${ this.state.detailsVisible ? 'icon-active' : '' }`} onClick={ this.detailsVisible }/>
-                    <div className='flex-row'>
-                        {
-                            disabled
-                                ? <i className="fas fa-exclamation-triangle" title="This member has their Steam profile set to private." />
-                                : <div></div>
-                        }
-                        <div className={ `member-name ${ shekelmaster ? `tier${tier}` : ''}` }>{ member.name }</div>
-                    </div>
+                    <div className={ `member-name ${ shekelmaster ? `tier${tier}` : ''}` }>{ member.name }</div>
                     <div className='dummy'></div>
                     <div className="member-ranking flex-row">
                         <div className="member-rating-score" title="Sum of all points">
