@@ -5,6 +5,6 @@ export const CHANGE_TAB = 'CHANGE_TAB';
 export function changeTab(tab: any): any {
   return {
     type: CHANGE_TAB,
-    tab: tab,
+    tab,
   };
 }

@@ -10,12 +10,7 @@ import Update from './Update';
 import ProgressBar from './ProgressBar';
 import CustomButton from './CustomButton';
 
-import Flex from './layout/Flex';
-import Wrapper from './layout/Wrapper';
-import Section from './layout/Section';
-
 export {
-  Flex,
   Loader,
   Login,
   // LoginModal,
@@ -27,6 +22,11 @@ export {
   Update,
   CustomButton,
   ProgressBar,
-  Wrapper,
-  Section,
 };
+
+import Flex from './layout/Flex';
+import Wrapper from './layout/Wrapper';
+import Section from './layout/Section';
+import Tabs from './layout/Tabs';
+
+export { Flex, Wrapper, Section, Tabs };

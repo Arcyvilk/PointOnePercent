@@ -13,6 +13,7 @@ import PageSupport from './Support';
 import PageBadges from './Badges';
 import PageProfile from './Profile';
 import PageGame from './Game';
+import PageAdmin from './Admin';
 
 const WrapperContent = styled.div`
   position: relative;
@@ -38,6 +39,7 @@ type TPage =
   | 'profile'
   | 'game'
   | 'badges'
+  | 'admin'
   | 'notfound';
 type Props = {
   page: TPage;
@@ -64,6 +66,8 @@ export default function Page(props: Props): JSX.Element {
         return <PageGame />;
       case 'badges':
         return <PageBadges />;
+      case 'admin':
+        return <PageAdmin />;
       case 'notfound':
         return <PageNotFound />;
       default:

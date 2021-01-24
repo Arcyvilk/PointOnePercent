@@ -56,6 +56,13 @@
     "external": false
   },
   {
+    "text": "admin",
+    "icon": "fas fa-tools",
+    "link": "admin",
+    "visible": false,
+    "external": false
+  },
+  {
     "text": "curator",
     "icon": "fab fa-steam",
     "link": "https://store.steampowered.com/curator/7119343",
