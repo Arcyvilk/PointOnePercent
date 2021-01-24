@@ -14,12 +14,11 @@ const StyledTab = styled.li.attrs(({ active }: { active?: boolean }) => {
   justify-content: center;
   align-items: center;
   height: 100%;
-  border-right: 3px solid ${colors.newDark};
   box-sizing: border-box;
   background-color: ${colors.superDarkGrey};
   color: ${colors.superLightGrey};
-  padding: 16px 32px;
-  margin-right: 2px;
+  padding: 16px;
+  margin-right: 4px;
   text-transform: uppercase;
   font-size: 0.8em;
   font-family: ${fonts.Raleway};

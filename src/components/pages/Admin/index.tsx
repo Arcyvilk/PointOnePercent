@@ -2,6 +2,7 @@ import React from 'react';
 import { Flex, Wrapper, Spinner, Tabs } from 'shared/components';
 import { TabType } from 'shared/components/layout/Tabs';
 import AddBadge from './AddBadge';
+import EditBadge from './EditBadge';
 import GiveBadge from './GiveBadge';
 
 const adminTabs: TabType[] = [
@@ -9,6 +10,11 @@ const adminTabs: TabType[] = [
     label: 'Add new badge',
     icon: 'fas fa-award',
     panel: <AddBadge />,
+  },
+  {
+    label: 'Edit badge',
+    icon: 'fas fa-edit',
+    panel: <EditBadge />,
   },
   {
     label: 'Give badge to user',

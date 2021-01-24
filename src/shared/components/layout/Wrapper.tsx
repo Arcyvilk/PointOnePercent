@@ -105,6 +105,18 @@ const WrapperDescription = styled.div`
   }
 `;
 
+const WrapperSubPage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  border: 3px solid ${colors.newDark};
+  background-color: ${colors.superLightGrey}44;
+`;
+
 export default function Wrapper(props: WrapperProps): JSX.Element {
   const { type, children } = props;
   if (type === 'nav') {
@@ -121,6 +133,9 @@ export default function Wrapper(props: WrapperProps): JSX.Element {
   }
   if (type === 'page') {
     return <WrapperPage>{children}</WrapperPage>;
+  }
+  if (type === 'subpage') {
+    return <WrapperSubPage>{children}</WrapperSubPage>;
   }
   return <div className={`wrapper-${type}`}>{children}</div>;
 }

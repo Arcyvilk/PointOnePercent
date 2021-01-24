@@ -10,6 +10,7 @@ const CustomButton = styled.button`
   text-transform: uppercase;
   height: 40px;
   font-size: 1.3em;
+  padding: 8px;
   cursor: pointer;
   &:hover {
     background-color: ${colors.newMediumGrey};

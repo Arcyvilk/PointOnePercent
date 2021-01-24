@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { colors } from 'shared/theme';
 import Tab from './Tab';
 
 export type TabType = {
@@ -25,7 +24,6 @@ const Nav = styled.ul`
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: ${colors.newDark};
 `;
 const Panel = styled.div``;
 
