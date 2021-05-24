@@ -45,7 +45,7 @@
     "text": "badges",
     "icon": "fas fa-ribbon",
     "link": "badges",
-    "visible": false,
+    "visible": true,
     "external": false
   },
   {
@@ -61,5 +61,19 @@
     "link": "https://store.steampowered.com/curator/7119343",
     "visible": true,
     "external": true
+  },
+  {
+    "text": "my profile",
+    "icon": "fas fa-smile",
+    "link": "me",
+    "visible": false,
+    "external": false
+  },
+  {
+    "text": "admin",
+    "icon": "fas fa-tools",
+    "link": "admin",
+    "visible": false,
+    "external": false
   }
 ]
